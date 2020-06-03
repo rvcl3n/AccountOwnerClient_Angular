@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RepositoryService } from './../../shared/services/repository.service';
 import { Owner } from './../../_interfaces/owner.model';
+import { ErrorHandlerService } from './../../shared/services/error-handler.service';
 
 @Component({
   selector: 'app-owner-list',
@@ -9,8 +10,9 @@ import { Owner } from './../../_interfaces/owner.model';
 })
 export class OwnerListComponent implements OnInit {
   public owners: Owner[];
+  public errorMessage: string = '';
 
-  constructor(private repository: RepositoryService) { }
+  constructor(private repository: RepositoryService, private errorHandler: ErrorHandlerService) { }
 
   ngOnInit(): void {
     this.getAllOwners();
@@ -21,6 +23,10 @@ export class OwnerListComponent implements OnInit {
     this.repository.getData(apiAddress)
     .subscribe(res => {
       this.owners = res as Owner[];
+    },
+    (error) => {
+      this.errorHandler.handleError(error);
+      this.errorMessage = this.errorHandler.errorMessage;
     })
   }
 }
