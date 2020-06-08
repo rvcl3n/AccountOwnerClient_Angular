@@ -20,6 +20,7 @@
                   (change)="executeDatePicker($event)" readonly/>
           </div>
           <div class="col-md-5">
+            <em *ngIf="validateControl('dateOfBirth') && hasError('dateOfBirth', 'required')">Date of birth is required</em>
           </div>
         </div>
    
