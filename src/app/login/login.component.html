@@ -1,0 +1,13 @@
+<div class="header center">Log In</div>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+    <input type="text" id="email" formControlName="email"  class="form-control">
+ 
+    <input  type="password" id="password"  formControlName="password"  class="form-control">
+
+    <div class="actions">
+        <button color="primary" type="submit" [disabled]="!loginForm.valid">LOG IN</button>
+      </div>
+
+</form>

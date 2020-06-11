@@ -7,4 +7,7 @@ export interface Owner{
     address: string;
 
     accounts?: Account[];
+
+    password: string;
+    email: string;
 }
