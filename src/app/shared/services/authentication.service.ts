@@ -11,7 +11,7 @@ import { Tokens } from '../../_interfaces/token';
 export class AuthService {
 
   private readonly JWT_TOKEN = 'token';
-  private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
+  private readonly REFRESH_TOKEN = 'refreshToken';
   private loggedUser: string;
 
   constructor(private http: HttpClient) {}
@@ -44,10 +44,10 @@ export class AuthService {
   }
 
   refreshToken() {
-    return this.http.post<any>(`${environment.urlAddress}/refresh`, {
+    return this.http.post<any>(`${environment.urlAddress}/api/owner/refreshtoken`, {
       'refreshToken': this.getRefreshToken()
     }).pipe(tap((tokens: Tokens) => {
-      this.storeJwtToken(tokens.token);
+      this.storeTokens(tokens);
     }));
   }
 
@@ -75,7 +75,7 @@ export class AuthService {
 
   private storeTokens(tokens: Tokens) {
     localStorage.setItem(this.JWT_TOKEN, tokens.token);
-    //localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
+    localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
   }
 
   private removeTokens() {
